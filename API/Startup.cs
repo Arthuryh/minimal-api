@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MinimalApi.Dominio.Entidades;
@@ -20,7 +19,7 @@ namespace MinimalApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration) 
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
             key = Configuration?.GetSection("Jwt")?.ToString() ?? "";
@@ -83,7 +82,8 @@ namespace MinimalApi
                 });
             });
 
-            services.AddDbContext<DbContexto>(options => {
+            services.AddDbContext<DbContexto>(options =>
+            {
                 options.UseMySql(
                     Configuration.GetConnectionString("MySql"),
                     ServerVersion.AutoDetect(Configuration.GetConnectionString("MySql"))
@@ -131,7 +131,8 @@ namespace MinimalApi
                     return new JwtSecurityTokenHandler().WriteToken(token);
                 }
 
-                endpoints.MapPost("/adminstradores/login", ([FromBody] LoginDTO loginDTO, IAdministradorServico administradorServico) => {
+                endpoints.MapPost("/adminstradores/login", ([FromBody] LoginDTO loginDTO, IAdministradorServico administradorServico) =>
+                {
                     var adm = administradorServico.Login(loginDTO);
                     if (adm != null)
                     {
@@ -147,7 +148,8 @@ namespace MinimalApi
                         return Results.Unauthorized();
                 }).AllowAnonymous().WithTags("Administradores");
 
-                endpoints.MapGet("/adminstradores", ([FromQuery] int? pagina, IAdministradorServico administradorServico) => {
+                endpoints.MapGet("/adminstradores", ([FromQuery] int? pagina, IAdministradorServico administradorServico) =>
+                {
                     var adms = new List<AdministradorModelView>();
                     var administradores = administradorServico.Todos(pagina);
                     foreach (var adm in administradores)
@@ -165,7 +167,8 @@ namespace MinimalApi
                     .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
                     .WithTags("Administradores");
 
-                endpoints.MapGet("/adminstradores{id}", ([FromRoute] int id, IAdministradorServico administradorServico) => {
+                endpoints.MapGet("/adminstradores{id}", ([FromRoute] int id, IAdministradorServico administradorServico) =>
+                {
                     var administrador = administradorServico.BuscaPorId(id);
                     if (administrador == null) return Results.NotFound();
                     return Results.Ok(new AdministradorModelView
@@ -179,7 +182,8 @@ namespace MinimalApi
                     .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
                     .WithTags("Administradores");
 
-                endpoints.MapPost("/adminstradores", ([FromBody] AdministradorDTO administradorDTO, IAdministradorServico administradorServico) => {
+                endpoints.MapPost("/adminstradores", ([FromBody] AdministradorDTO administradorDTO, IAdministradorServico administradorServico) =>
+                {
                     var validacao = new ErrosDeValidacao
                     {
                         Mensagens = new List<string>()
@@ -233,7 +237,8 @@ namespace MinimalApi
                     return validacao;
                 }
 
-                endpoints.MapPost("/veiculos", ([FromBody] VeiculoDTO veiculoDTO, IVeiculoServico veiculoServico) => {
+                endpoints.MapPost("/veiculos", ([FromBody] VeiculoDTO veiculoDTO, IVeiculoServico veiculoServico) =>
+                {
                     var validacao = validaDTO(veiculoDTO);
                     if (validacao.Mensagens.Count > 0)
                         return Results.BadRequest(validacao);
@@ -253,13 +258,15 @@ namespace MinimalApi
                     .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
                     .WithTags("Veiculos");
 
-                endpoints.MapGet("/veiculos", ([FromQuery] int? pagina, IVeiculoServico veiculoServico) => {
+                endpoints.MapGet("/veiculos", ([FromQuery] int? pagina, IVeiculoServico veiculoServico) =>
+                {
                     var veiculos = veiculoServico.Todos(pagina);
 
                     return Results.Ok(veiculos);
                 }).RequireAuthorization().WithTags("Veiculos");
 
-                endpoints.MapGet("/veiculos{id}", ([FromRoute] int id, IVeiculoServico veiculoServico) => {
+                endpoints.MapGet("/veiculos{id}", ([FromRoute] int id, IVeiculoServico veiculoServico) =>
+                {
                     var veiculo = veiculoServico.BuscaPorId(id);
                     if (veiculo == null) return Results.NotFound();
                     return Results.Ok(veiculo);
@@ -268,7 +275,8 @@ namespace MinimalApi
                     .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
                     .WithTags("Veiculos");
 
-                endpoints.MapPut("/veiculos{id}", ([FromRoute] int id, VeiculoDTO veiculoDTO, IVeiculoServico veiculoServico) => {
+                endpoints.MapPut("/veiculos{id}", ([FromRoute] int id, VeiculoDTO veiculoDTO, IVeiculoServico veiculoServico) =>
+                {
                     var veiculo = veiculoServico.BuscaPorId(id);
                     if (veiculo == null) return Results.NotFound();
 
@@ -288,7 +296,8 @@ namespace MinimalApi
                     .RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
                     .WithTags("Veiculos");
 
-                endpoints.MapDelete("/veiculos{id}", ([FromRoute] int id, IVeiculoServico veiculoServico) => {
+                endpoints.MapDelete("/veiculos{id}", ([FromRoute] int id, IVeiculoServico veiculoServico) =>
+                {
                     var veiculo = veiculoServico.BuscaPorId(id);
                     if (veiculo == null) return Results.NotFound();
 
