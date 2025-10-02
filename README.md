@@ -5,7 +5,7 @@ www.dio.me
 Projeto criado em aula com o intuito de criar uma aplicação minimal API em .NET, utilizando conceitos de POO (Programação Orientada a Objetos).
 
 ## Solução
-O código está completo, conforme demonstraod em aula. Para executar:
+O código está completo, conforme demonstrado em aula. Para executar:
 
 ### API
 1. Abra o arquivo "minimal-api.sln" presente na pasta "API"
