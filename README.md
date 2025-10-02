@@ -2,15 +2,15 @@
 www.dio.me
 
 ## Contexto
-Projeto criado em aula com o intuito de criar uma aplicaÁ„o minimal API em .NET, utilizando conceitos de POO (ProgramaÁ„o Orientada a Objetos).
+Projeto criado em aula com o intuito de criar uma aplica√ß√£o minimal API em .NET, utilizando conceitos de POO (Programa√ß√£o Orientada a Objetos).
 
-## SoluÁ„o
-O cÛdigo est· completo, conforme demonstraod em aula. Para executar:
+## Solu√ß√£o
+O c√≥digo est√° completo, conforme demonstraod em aula. Para executar:
 
 ### API
 1. Abra o arquivo "minimal-api.sln" presente na pasta "API"
-2. Rode a soluÁ„o com o comando "dotnet run", e acesse o IP local informado.
+2. Rode a solu√ß√£o com o comando "dotnet run", e acesse o IP local informado.
 
 ### Testes
-1. Abra o arquivo "minimal-api.sln" presente na pasta "Testes"
+1. Abra o arquivo "minimal-api.sln" presente na raiz do projeto.
 2. Rode os casos de teste com o comando "dotnet test". Veja os resultados no terminal.
